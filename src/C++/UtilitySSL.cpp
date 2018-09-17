@@ -1307,7 +1307,7 @@ bool loadSSLCert(SSL_CTX *ctx, bool server, const SessionSettings &settings,
   switch (typeofSSLAlgo(X509Cert, 0))
   {
   case SSL_ALGO_RSA:
-    log->onEvent("Configuring RSA client certificate");
+    log->onEvent("Configuring RSA certificate");
 
     if (SSL_CTX_use_certificate(ctx, X509Cert) <= 0)
     {
@@ -1317,16 +1317,16 @@ bool loadSSLCert(SSL_CTX *ctx, bool server, const SessionSettings &settings,
     break;
 
   case SSL_ALGO_DSA:
-    log->onEvent("Configuring DSA client certificate");
+    log->onEvent("Configuring DSA certificate");
     if (SSL_CTX_use_certificate(ctx, X509Cert) <= 0)
     {
-      errStr.assign("Unable to configure DSA client certificate");
+      errStr.assign("Unable to configure DSA certificate");
       return false;
     }
     break;
 
   default:
-    errStr.assign("Unable to configure client certificate");
+    errStr.assign("Unable to configure certificate");
     return false;
     break;
   }
@@ -1353,25 +1353,25 @@ bool loadSSLCert(SSL_CTX *ctx, bool server, const SessionSettings &settings,
   switch (typeofSSLAlgo(0, privateKey))
   {
   case SSL_ALGO_RSA:
-    log->onEvent("Configuring RSA client private key");
+    log->onEvent("Configuring RSA private key");
     if (SSL_CTX_use_PrivateKey(ctx, privateKey) <= 0)
     {
-      errStr.assign("Unable to configure RSA server private key");
+      errStr.assign("Unable to configure RSA key");
       return false;
     }
     break;
 
   case SSL_ALGO_DSA:
-    log->onEvent("Configuring DSA client private key");
+    log->onEvent("Configuring DSA private key");
     if (SSL_CTX_use_PrivateKey(ctx, privateKey) <= 0)
     {
-      errStr.assign("Unable to configure DSA server private key");
+      errStr.assign("Unable to configure DSA private key");
       return false;
     }
     break;
   default:
 
-    errStr.assign("Unable to configure client certificate");
+    errStr.assign("Unable to configure certificate");
     return false;
     break;
   }
